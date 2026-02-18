@@ -75,7 +75,6 @@ els.cityInput.addEventListener("input", () => {
             );
 
             els.suggestions.replaceChildren();
-
             if (!data.length) return;
 
             els.suggestions.style.display = "block";
@@ -134,7 +133,6 @@ async function getWeather(lat, lon, query = null) {
         els.buttons.replaceChildren();
 
         const btnRec = document.createElement("button");
-        btnRec.id = "btnRec";
         btnRec.textContent = "Actividades";
         btnRec.onclick = () => {
             els.rec.childNodes.length
@@ -143,7 +141,6 @@ async function getWeather(lat, lon, query = null) {
         };
 
         const btnFav = document.createElement("button");
-        btnFav.id = "btnFav";
         btnFav.textContent = "⭐";
         btnFav.onclick = () => {
             saveFavorite(displayName);
@@ -199,8 +196,12 @@ async function getForecast(lat, lon, query) {
     } catch {}
 }
 
-const getStore = k => JSON.parse(localStorage.getItem(k)) || [];
-const setStore = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+const getStore = k =>
+    (JSON.parse(localStorage.getItem(k)) || [])
+        .filter(v => typeof v === "string" && v !== "[object Object]");
+
+const setStore = (k, v) =>
+    localStorage.setItem(k, JSON.stringify(v));
 
 function saveFavorite(name) {
     const list = getStore("favorites");
