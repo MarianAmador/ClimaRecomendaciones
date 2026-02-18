@@ -162,7 +162,7 @@ async function getWeather(lat, lon, query = null) {
         p.style.color = err.message === "NOT_FOUND" ? "orange" : "red";
         p.textContent = err.message === "NOT_FOUND"
             ? "No se encontró la ciudad."
-            : "Error al obtener el clima.";
+            : "No hay conexión. Revisa tu conexión a internet.";
         els.result.appendChild(p);
     }
 }
